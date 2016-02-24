@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/chriscampbell32/rutgers-virtual-flyer/issues"
   },
-  "homepage": "https://github.com/chriscampbell32/rutgers-virtual-flyer#readme"
+  "homepage": "https://github.com/chriscampbell32/rutgers-virtual-flyer#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
 }
