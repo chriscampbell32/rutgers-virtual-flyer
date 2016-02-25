@@ -37,13 +37,13 @@ app.set('view engine', 'handlebars');
 //set up routes
 
 
-app.listen(PORT, function(){
-    console.log("listening on port %s", PORT);
-});
-
-// // database connection via sequelize
-// connection.sync().then(function() {
-//   app.listen(PORT, function() {
-//       console.log("Listening on:" + PORT)
-//   });
+// app.listen(PORT, function(){
+//     console.log("listening on port %s", PORT);
 // });
+
+// database connection via sequelize
+connection.sync().then(function() {
+  app.listen(PORT, function() {
+      console.log("Listening on:" + PORT)
+  });
+});
