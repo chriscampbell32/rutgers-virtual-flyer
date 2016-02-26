@@ -1,11 +1,13 @@
-//npm packages//
+var PORT = process.env.PORT || 8080;
+//npm packages
 var express = require('express');
+//var dotenv = require('dotenv').config();
 var expressHandlebars = require('express-handlebars');
 var bodyParser = require('body-parser');
 var bcrypt = require('bcryptjs');
 var mysql = require('mysql');
 var app = express();
-var PORT = process.env.NODE_ENV || 8080;
+
 
 //sequelize database setup//
 var Sequelize = require('sequelize');
@@ -19,13 +21,15 @@ var connection = mysql.createConnection(
         database: 'rutgersflyers_db',
 });
 //console.log("connection created is " + connection);
+connection.connect();
+
 connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
   if (err) throw err;
 
   console.log('The solution is: ', rows[0].solution);
 });
 
-connection.connect();
+
 
 
 // //passport
