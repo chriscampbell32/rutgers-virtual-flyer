@@ -18,7 +18,12 @@ var connection = mysql.createConnection(
         password: '',
         database: 'rutgersflyers_db',
 });
-console.log("connection created is " + connection);
+//console.log("connection created is " + connection);
+connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+  if (err) throw err;
+
+  console.log('The solution is: ', rows[0].solution);
+});
 
 connection.connect();
 
