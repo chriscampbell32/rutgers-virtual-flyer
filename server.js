@@ -12,8 +12,12 @@ var Sequelize = require('sequelize');
 var sequelize = new Sequelize('rutgersflyers_db', 'root');
     
 var connection = mysql.createConnection(
-    process.env.JAWSDB_URL
-);
+    process.env.JAWSDB_URL || {
+        host: 'localhost',
+        user: 'root',
+        password: '',
+        database: 'rutgersflyers_db',
+});
 console.log("connection created is " + connection);
 
 connection.connect();
@@ -44,6 +48,10 @@ connection.connect();
 // app.set('view engine', 'handlebars');
 
 //set up routes
+
+app.get("/", function(req, res){
+    res.sendFile('index');
+})
 
 app.listen(PORT, function(){
     console.log("listening in port %s", PORT);
