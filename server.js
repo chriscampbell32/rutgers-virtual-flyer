@@ -2,13 +2,22 @@
 var express = require('express');
 var expressHandlebars = require('express-handlebars');
 var bodyParser = require('body-parser');
-var bcrypt = require('bcryptjs')
+var bcrypt = require('bcryptjs');
+var mysql = require('mysql');
 var app = express();
 var PORT = process.env.NODE_ENV || 8080;
 
 //sequelize database setup//
-// var Sequelize = require('sequelize');
-// var connection = new Sequelize('rutgersflyers_db', 'root');
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize('rutgersflyers_db', 'root');
+    
+var connection = mysql.createConnection(
+    process.env.JAWSDB_URL
+);
+console.log("connection created is " + connection);
+
+connection.createConnection();
+
 
 // //passport
 // var passport = require('passport');
