@@ -16,7 +16,7 @@ var connection = mysql.createConnection(
 );
 console.log("connection created is " + connection);
 
-connection.createConnection();
+connection.connect();
 
 
 // //passport
