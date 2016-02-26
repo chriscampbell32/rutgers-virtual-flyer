@@ -50,7 +50,7 @@ connection.connect();
 //set up routes
 
 app.get("/", function(req, res){
-    res.sendFile('index');
+    res.send('hello world');
 })
 
 app.listen(PORT, function(){
