@@ -17,7 +17,8 @@ if(process.env.NODE_ENV === 'production') {
   var connection = new Sequelize('rutgersflyers_db', 'root');
 }
 
-
+//serving static content (rutgers.jpg) from the app from the "public" dir
+app.use(express.static('public'));
 
 //routes
 var routes = require('./routes/index');
