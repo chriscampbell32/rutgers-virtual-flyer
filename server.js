@@ -36,7 +36,37 @@ app.use('/public', express.static(__dirname + "/public"));
 
 //passport
 var passport = require('passport');
-var passportLocal = require('passport-local');
+var passportLocal = require('passport-local').Strategy;
+
+//config local strategy for passport
+//the local strategy needs a verify function that
+//gets the credentials given by the user (username,psswrd)
+
+passport.use(new Strategy(
+  function(username, password, cb) {
+    db.users.findByUsername(username, function(err, user) {
+      if (err) { return cb(err); }
+      if (!user) { return cb(null, false); }
+      if (user.password != password) { return cb(null, false); }
+      return cb(null, user);
+    });
+  }));
+
+//config passport authenticated session persistence
+//passport must serialize users into and deserialize users out of
+//the session. just supply user ID when serializing and query the 
+//user record by ID from the db when deserializing
+
+passport.serializeUser(function(user, cb) {
+  cb(null, user.id);
+});
+
+passport.deserializeUser(function(id, cb) {
+  db.users.findById(id, function (err, user) {
+    if (err) { return cb(err); }
+    cb(null, user);
+  });
+});
 
 //middleware
 app.use(require('express-session')({
