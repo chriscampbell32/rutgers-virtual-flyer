@@ -17,24 +17,16 @@
                     <h1 class="text-center-xs text-left-sm">Livingston Campus Flyers</h1>
                 </a>
             </div>
-            <div class="col-xs-12 col-sm-3">
-                <div id="site-nav" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                        <ul class="list-unstyled">
-                            <li class="text-left-xs text-right-sm">
-                                <a href="#">LOGIN</a>
-                            </li>
-                            <li class="text-left-xs text-right-sm">
-                                <a href="#">REGISTRATION</a>
-                            </li>
-                            
-                        </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+            <div class="collapse navbar-collapse" id="login-registration">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <button id="login-button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#login-modal">Login</button>
+          </li>
+          <li>
+            <button id="register-button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#register-modal">Register</button>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
 
