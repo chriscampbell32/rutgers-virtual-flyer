@@ -14,6 +14,7 @@ if(process.env.NODE_ENV === 'production') {
   console.log(process.env.JawsDB_URL);
   var connection = new Sequelize(process.env.JAWSDB_URL);
 } else {
+  // local DB
   var connection = new Sequelize('rutgersflyers_db', 'root');
 }
 
