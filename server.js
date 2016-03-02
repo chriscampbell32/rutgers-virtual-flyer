@@ -20,12 +20,12 @@ if(process.env.NODE_ENV === 'production') {
 //serving static content (rutgers.jpg) from the app from the "public" dir
 app.use(express.static('public'));
 
+//bodyParser
+app.use(bodyParser.urlencoded({extended: false}));
+
 //routes
 var routes = require('./routes/index');
 app.use('/', routes);
-
-//bodyParser
-app.use(bodyParser.urlencoded({extended: false}));
 
 //set up handlebars layout
 app.engine('handlebars', expressHandlebars({defaultLayout: 'main'}));
