@@ -18,9 +18,10 @@ if(process.env.NODE_ENV === 'production') {
 }
 
 //serve static content using absolute path of the dir 
-// you want to serve for (Beautiful_Rutgers.png)
+// you want to serve for (Livingston.jpg)
 app.use('/static', express.static('/public'));
 //http://localhost:3000/static/images/Livingston.jpg
+//path to: http://metalwerksusa.com/wp-content/uploads/2014/08/5386.jpg
 
 //routes
 var routes = require('./routes/index');
