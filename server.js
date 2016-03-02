@@ -17,8 +17,10 @@ if(process.env.NODE_ENV === 'production') {
   var connection = new Sequelize('rutgersflyers_db', 'root');
 }
 
-//serving static content (rutgers.jpg) from the app from the "public" dir
-app.use(express.static('public'));
+//serve static content using absolute path of the dir 
+// you want to serve for (Beautiful_Rutgers.png)
+app.use('/static', express.static('/public'));
+//http://localhost:3000/static/images/Livingston.jpg
 
 //routes
 var routes = require('./routes/index');
