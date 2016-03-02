@@ -8,20 +8,21 @@ var PORT = process.env.PORT || 8080;
 
 var Sequelize = require('sequelize');
 
+//passport
+var passport = require('passport');
+var passportLocal = require('passport-local');
 
 if(process.env.NODE_ENV === 'production') {
   // Heroku DB
   console.log(process.env.JawsDB_URL);
   var connection = new Sequelize(process.env.JAWSDB_URL);
 } else {
-  var connection = new Sequelize('rutgersflyers_db', 'root');
+  var connection = new Sequelize('rutgersflyers_db', 'root', '');
 }
 
 //serve static content using absolute path of the dir 
-// you want to serve for (Livingston.jpg)
 app.use('/static', express.static('/public'));
 //http://localhost:3000/static/images/Livingston.jpg
-//path to: http://metalwerksusa.com/wp-content/uploads/2014/08/5386.jpg
 
 //routes
 var routes = require('./routes/index');
@@ -50,9 +51,6 @@ app.post('/check', passport.authenticate('local', {
   failureRedirect: '/?msg=Login Credentials do not work'
 }));
 
-//passport
-var passport = require('passport');
-var passportLocal = require('passport-local');
 //middleware init
 app.use(require('express-session')({
     secret: "supersecret",
@@ -66,29 +64,29 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new passportLocal.Strategy(function(username, password, done) {
-  //check password in db
-  User.findOne({
-    where: {
-      username: username
+  passport.use(new passportLocal(function(username, password, done) {
+    //check password in db
+    User.findOne({
+      where: {
+        username: username
+      }
+    }).then(function(user) {
+      //check psswrd against hash
+      if (user) {
+        bcrypt.compare(password, user.dataValues.password, function(err, user) {
+          if (user) {
+              //if password is right auth. the user w cookie
+              done(null, { id: username, username: username });
+            } else {
+              done(null, null);
+            }
+        });
+      } else {
+        done(null, null);
     }
-  }).then(function(user) {
-    //check psswrd against hash
-    if (user) {
-      bcrypt.compare(password, user.dataValues.password, function(err, user) {
-        if (user) {
-            //if password is right auth. the user w cookie
-            done(null, { id: username, username: username });
-          } else {
-               done(null, null);
-          }
-      });
-    } else {
-      done(null, null);
-  }
-});
+  });
 
-})); 
+  })); 
 
 //config passport authenticated session persistence
 //passport must serialize users into and deserialize users out of
@@ -120,12 +118,12 @@ var User = connection.define('user', {
   password: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate {
+    validate: {
       len: {
              args: [5, 10],
              msg: "Your password must be between 5-10 characters"
             },
-            is upperCase: true
+            isUpperCase: true
     }
   }
 },{
@@ -145,7 +143,7 @@ var User = connection.define('user', {
 //both of the below fields define the name of the  properties in the POST body that
 //are sent to the server
 
-passport.use(new LocalStrategy(
+passport.use(new passportLocal(
   function(username, password, done) {
     User.findOne({ username: username }, function (err, user) {
      if (err) { return done(err); }
@@ -154,7 +152,7 @@ passport.use(new LocalStrategy(
      return done(null, user);
     });
   }
-))}  
+))  
 
 // database connection via sequelize
 connection.sync().then(function() {
