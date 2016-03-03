@@ -66,8 +66,8 @@ passport.use(new passportLocal.Strategy (
         } else {
           done(null, null);
         }
-      });
-    }));
+  });
+});
 
 //config passport authenticated user session persistence
 //passport must serialize users into and deserialize users out of the session
