@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var bcrypt = require('bcryptjs')
 var app = express();
 var PORT = process.env.PORT || 8080;
+var cookieParser = require('cookie-parser');
 
 var Sequelize = require('sequelize');
 
