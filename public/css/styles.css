@@ -15,12 +15,16 @@
     color: #cc0033;
     text-align: center;
     margin-top: 200px;
+    -webkit-text-stroke-color: #fff;
+     -webkit-text-stroke-width: 1px;
 }
 
 .jumbotron p {
     color: #cc0033;
     text-align: center;
     margin-top: -10px;
+   
+     
 }
 
 .navbar {
@@ -32,6 +36,7 @@
 }
 .navbar h1{
     color: #cc0033;
+
 
 }
 
