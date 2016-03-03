@@ -1,1 +1,56 @@
 /*css styles go here*/
+.jumbotron {
+    position: relative;
+    background:  url("/images/Rutgers_Business_School,_New_Brunswick.jpg") center center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 600px;
+    width: 100%;
+    text-align: 300px center;
+}
+
+.jumbotron h1{
+    
+    
+    color: #cc0033;
+    text-align: center;
+    margin-top: 200px;
+    -webkit-text-stroke-color: #fff;
+     -webkit-text-stroke-width: 1px;
+}
+
+.jumbotron p {
+    color: #cc0033;
+    text-align: center;
+    margin-top: -10px;
+   
+     
+}
+
+.navbar {
+    background-color: white;
+    opacity: .75;
+
+
+    
+}
+.navbar h1{
+    color: #cc0033;
+
+
+}
+
+.footer {
+    background-color: #D3D3D3;
+
+}
+
+h1, p, h3, h5{
+    font-family: 'ubuntu';
+}
+
+.btn-primary { border-color: #fff; background-color: #cc0033;}
+.btn-primary:hover { border-color: #fff; background-color: #778899; }
+
+
+

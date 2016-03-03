@@ -2,9 +2,11 @@
  <html>
    <head>
      <title>Rutgers Virtual Flyer</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1">
      <meta charset="UTF-8">
      <!-- Latest compiled and minified CSS aka the bootsrap!! -->
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
+<<<<<<< HEAD
      <link rel="stylesheet" type="text/css" href="./public/css/style.css">
    </head>
    <body>
@@ -40,3 +42,115 @@
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
    </body>
  </html>
+=======
+     <link href='https://fonts.googleapis.com/css?family=Ubuntu:500' rel='stylesheet' type='text/css'>
+     <link rel="stylesheet" type="text/css" href="css/styles.css">
+   </head>
+   <body>
+
+    <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+           <div class="row">
+            <div class=" col-xs-12 col-sm-9">
+                <a href="#">
+                    <h1 class="text-center-xs text-left-sm">Livingston Campus Flyers</h1>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="login-registration">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <button id="login-button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#login-modal">Login</button>
+          </li>
+          <li>
+            <button id="register-button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#register-modal">Register</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  
+ <!-- Login Modal -->
+  <div id="login-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content text-center">
+        <div class="modal-body">
+          <h3>Log In</h3>
+          <form action="/login" method="POST">
+            <div class="form-group">
+              <input id="loginEmail" type="text" name="email" placeholder="Enter your email" />
+            </div>
+            <div class="form-group">
+              <input id="loginPassword" type="text" name="password" placeholder="Enter your password" />
+            </div>
+            <button type="submit" class="btn btn-primary">Log In</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Register Modal -->
+  <div id="register-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content text-center">
+        <div class="modal-body">
+          <h3>Register</h3>
+          <form action="/register" method="POST">
+            <div class="form-group">
+
+              <input id="registerFirstName" type="text" name="firstname" placeholder="Enter your first name"/>
+
+            </div>
+            <div class="form-group">
+              <input id="registerLastName" type="text" name="lastname" placeholder="Enter your last name"/>
+            </div>
+            <div class="form-group">
+
+              <input id="registerEmail" type="text" name="email" placeholder="Enter your email" />
+            </div>
+            <div class="form-group">
+              <input id="registerPassword" type="text" name="password" placeholder="Enter a password" />
+
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+     {{{ body }}}
+
+
+   <footer class="footer ">
+      <div class="container">
+        <div class="row">
+          <div class="col lg-6 sm-12">
+            <h5>Footer content</h5>
+            <p >made a couple of cool cats</p>
+          </div>
+          <div class="col lg-3 sm-12">
+            <h5>About</h5>
+            <ul>
+              <li><a href="#!">Link 1</a></li>
+              <li><a href="#!">Link 2</a></li>
+            </ul>
+          </div>
+          <div class="col lg-3 sm-12">
+            <h5>Connect</h5>
+            <ul>
+              <li><a href="#!">Link 1</a></li>
+              <li><a href="#!">Link 2</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+   
+
+   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+   </body>
+
+ </HTML> 
+>>>>>>> 459297a3fdcdb2f5a568bce567a7de3e615b1532
