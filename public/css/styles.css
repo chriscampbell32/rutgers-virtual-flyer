@@ -41,10 +41,16 @@
 }
 
 .footer {
-    background-color: #cc0033;
+    background-color: #D3D3D3;
 
 }
 
 h1, p, h3, h5{
     font-family: 'ubuntu';
 }
+
+.btn-primary { border-color: #fff; background-color: #cc0033;}
+.btn-primary:hover { border-color: #fff; background-color: #778899; }
+
+
+
