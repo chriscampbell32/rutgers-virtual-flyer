@@ -24,11 +24,8 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: false}));
 
 //routes
-<<<<<<< HEAD
-var routes = require('./routes/router');
-=======
+
 var routes = require('./routes/index');
->>>>>>> d068b25980652aaa77f172292875838785e12b85
 app.use('/', routes);
 
 //set up handlebars layout
