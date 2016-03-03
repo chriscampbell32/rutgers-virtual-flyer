@@ -20,12 +20,12 @@ if(process.env.NODE_ENV === 'production') {
 //serving static content (rutgers.jpg) from the app from the "public" dir
 app.use(express.static('public'));
 
-//routes
-var routes = require('./routes/index');
-app.use('/', routes);
-
 //bodyParser
 app.use(bodyParser.urlencoded({extended: false}));
+
+//routes
+var routes = require('./routes/router');
+app.use('/', routes);
 
 //set up handlebars layout
 app.engine('handlebars', expressHandlebars({defaultLayout: 'main'}));
@@ -48,6 +48,10 @@ app.use(require('express-session')({
         maxAge: (1000 * 60 * 60 *24 * 14)
     },
 }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 
 // database connection via sequelize

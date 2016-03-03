@@ -1,7 +1,8 @@
 var Sequelize = require('sequelize');
 var connection = new Sequelize('rutgersflyers_db', 'root');
 
-var User = connection.define('User', {
+
+var User = connection.define('user', {
   firstname: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -28,6 +29,8 @@ var User = connection.define('User', {
     }
   },
 });
+
+
 
 
 module.exports = User;
