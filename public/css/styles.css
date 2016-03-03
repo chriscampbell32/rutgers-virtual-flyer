@@ -39,3 +39,7 @@
     background-color: #cc0033;
 
 }
+
+h1, p, h3, h5{
+    font-family: 'ubuntu';
+}
