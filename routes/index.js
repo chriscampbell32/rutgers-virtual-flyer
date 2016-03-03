@@ -16,12 +16,12 @@ router.get('/login', function(req, res) {
 
 router.post('/login', function(req, res) {
       var email = req.body.email;
-           var password = req.body.password;
+      var password = req.body.password;
  });
- 
+
 router.post('/register', function (req, res) {
    // console.log(req.body);
-    User.sync().then(function() { 
+    User.sync().then(function() {
       User.create(req.body).then(function() {
         //console.log("works");
       }).catch(function(err) {
