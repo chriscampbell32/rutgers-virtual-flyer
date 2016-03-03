@@ -25,9 +25,9 @@ var User = connection.define('user', {
       len: {
         args: [5,10],
         msg: "Your password must be between 5-10 characters"
-      },
+      }
     }
-  },
+  }
 });
 
 
