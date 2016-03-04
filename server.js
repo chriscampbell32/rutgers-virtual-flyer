@@ -22,7 +22,8 @@ if(process.env.NODE_ENV === 'production') {
 }
 
 //serve static content using absolute path of the dir 
-app.use('/static', express.static('/public'));
+app.use(express.static('public'));
+
 //http://localhost:3000/static/images/Livingston.jpg
 
 //bodyParser
