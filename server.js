@@ -23,7 +23,6 @@ if(process.env.NODE_ENV === 'production') {
 
 //serve static content using absolute path of the dir 
 app.use('/static', express.static('/public'));
-//http://localhost:3000/static/images/Livingston.jpg
 
 //routes
 var routes = require('./routes/index');
@@ -62,6 +61,7 @@ app.use(require('express-session')({
         maxAge: (1000 * 60 * 60 *24 * 14)
     },
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -153,8 +153,11 @@ passport.use(new passportLocal(
      return done(null, user);
     });
   }
-))  
+))
 
+// app.post("/login", passport.authenticate) {
+
+// }
 // database connection via sequelize
 connection.sync().then(function() {
   app.listen(PORT, function() {
