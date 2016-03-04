@@ -2,6 +2,11 @@
   <h1> Welcome </h1>
   <p>things to do on Livingston campus</p>
 </div>
+{{#if isAuthenticated}}
+  <h2>Hello there {{ user.username }}</h2>
+{{else}}
+  <h2>SORRY</h2>
+{{/if}}
 <div class="container">
 
     <div class="row col-md-12">

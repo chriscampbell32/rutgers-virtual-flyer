@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
+//require table models
 var User = require('../models/user');
+var Sports = require('../models/sports');
 var passport = require('passport');
 var passportLocal = require('passport-local');
 var bcrypt = require('bcryptjs');
+var bodyParser = require('body-parser');
 
 console.log('routes/index.js loaded');
 
@@ -73,30 +76,38 @@ router.get('/', function(req, res) {
   res.render('home');
 });
 
-router.get('/register', function(req, res) {
-  res.render('register', {title: 'Register Here'});
-});
+// router.get('/register', function(req, res) {
+//   res.render('register', {title: 'Register Here'});
+// });
 
 
 router.post('/login', 
   passport.authenticate('local', {
-    successRedirect: '/sports',
+    successRedirect: '/home',
     failureRedirect: '/register'
   })
 );
 
 
-// router.get('/login', function(req, res) {
-//   res.render('login', {title: 'Login Here'});
-// });
-
 
 router.get('/home', function(req, res) {
-  res.render('home');
+  //console.log('req all the things ' + JSON.parse(JSON.stringify(req);
+  res.render('home', {
+    user: req.user,
+    isAuthenticated: req.isAuthenticated()
+  });
 });
 
 router.get('/sports', function(req, res){
-  res.render('sports');
+  Sports.findAll({
+    where: {
+      sport: sport
+    }
+  })
+  res.render('sports', {
+    sport: req.body.sport,
+    isAuthenticated: req.isAuthenticated()
+  });
 });
 
  
@@ -105,6 +116,19 @@ router.post('/register', function (req, res) {
    // console.log(req.body);
     User.sync().then(function() { 
       User.create(req.body).then(function() {
+        //console.log("works");
+      }).catch(function(err) {
+        console.log(err);
+      });
+    });
+});
+
+router.post('/sports', function (req, res) {
+
+   // console.log(req.body);
+    Sports.sync().then(function() { 
+      Sports.create(req.body).then(function() {
+        res.redirect('/sports');
         //console.log("works");
       }).catch(function(err) {
         console.log(err);
