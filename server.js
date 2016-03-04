@@ -111,33 +111,33 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-var User = connection.define('user', {
-  firstname: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: false
-  },
-  lastname: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: false
-  },
-  email: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true
-  },
-  password: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      len: {
-        args: [5,10],
-        msg: "Your password must be between 5-10 characters"
-      }
-    }
-  }
-});
+// var User = connection.define('user', {
+//   firstname: {
+//     type: Sequelize.STRING,
+//     allowNull: false,
+//     unique: false
+//   },
+//   lastname: {
+//     type: Sequelize.STRING,
+//     allowNull: false,
+//     unique: false
+//   },
+//   email: {
+//     type: Sequelize.STRING,
+//     allowNull: false,
+//     unique: true
+//   },
+//   password: {
+//     type: Sequelize.STRING,
+//     allowNull: false,
+//     validate: {
+//       len: {
+//         args: [5,10],
+//         msg: "Your password must be between 5-10 characters"
+//       }
+//     }
+//   }
+// });
 
 // var User = connection.define('user', {
 //   username: {
@@ -173,16 +173,16 @@ var User = connection.define('user', {
 //both of the below fields define the name of the  properties in the POST body that
 //are sent to the server
 
-passport.use(new passportLocal(
-  function(username, password, done) {
-    User.findOne({ username: username }, function (err, user) {
-     if (err) { return done(err); }
-     if (!user) { return done(null, false); }
-     if (!user.verifyPassword(password)) { return done(null, false); }
-     return done(null, user);
-    });
-  }
-))  
+// passport.use(new passportLocal(
+//   function(username, password, done) {
+//     User.findOne({ username: username }, function (err, user) {
+//      if (err) { return done(err); }
+//      if (!user) { return done(null, false); }
+//      if (!user.verifyPassword(password)) { return done(null, false); }
+//      return done(null, user);
+//     });
+//   }
+// ))  
 
 
 //routes
