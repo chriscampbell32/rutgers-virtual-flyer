@@ -63,6 +63,10 @@ router.get('/home', function(req, res) {
   res.render('home');
 });
 
+router.get('/sports', function(req, res){
+  res.render('sports');
+});
+
  
 router.post('/register', function (req, res) {
 
