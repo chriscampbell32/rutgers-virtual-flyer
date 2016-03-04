@@ -29,10 +29,6 @@ app.use(express.static('public'));
 //bodyParser
 app.use(bodyParser.urlencoded({extended: false}));
 
-//routes
-
-var routes = require('./routes/index');
-app.use('/', routes);
 
 //set up handlebars layout
 app.engine('handlebars', expressHandlebars({defaultLayout: 'main'}));
@@ -42,17 +38,20 @@ app.use('/public', express.static(__dirname + "/public"));
 
 //using passport authenticate, specifying local strategy
 //to authenticate requests
-app.post('/login',
-  passport.authenticate('local',{ failureRedirect: '/login'}),
-  function(req,res) {
-    res.redirect('/');
-});
+// app.post('/login',
+//   passport.authenticate('local',{ 
+//     successRedirect: '/',
+//     failureRedirect: '/?msg=failzors'}
+//   )//,
+//   // function(req,res) {
+//   //   res.redirect('/');
+// );
 
 //check login with db
-app.post('/check', passport.authenticate('local', {
-  successRedirect: '/home',
-  failureRedirect: '/?msg=Login Credentials do not work'
-}));
+// app.post('/check', passport.authenticate('local', {
+//   successRedirect: '/',
+//   failureRedirect: '/?msg=Login Credentials do not work'
+// }));
 
 app.use(require('express-session')({
     secret: "supersecret",
@@ -66,29 +65,29 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 
-  passport.use(new passportLocal(function(username, password, done) {
-    //check password in db
-    User.findOne({
-      where: {
-        username: username
-      }
-    }).then(function(user) {
-      //check psswrd against hash
-      if (user) {
-        bcrypt.compare(password, user.dataValues.password, function(err, user) {
-          if (user) {
-              //if password is right auth. the user w cookie
-              done(null, { id: username, username: username });
-            } else {
-              done(null, null);
-            }
-        });
-      } else {
-        done(null, null);
-    }
-  });
+  // passport.use(new passportLocal(function(username, password, done) {
+  //   //check password in db
+  //   User.findOne({
+  //     where: {
+  //       username: username
+  //     }
+  //   }).then(function(user) {
+  //     //check psswrd against hash
+  //     if (user) {
+  //       bcrypt.compare(password, user.dataValues.password, function(err, user) {
+  //         if (user) {
+  //             //if password is right auth. the user w cookie
+  //             done(null, { id: username, username: username });
+  //           } else {
+  //             done(null, null);
+  //           }
+  //       });
+  //     } else {
+  //       done(null, null);
+  //   }
+  // });
 
-  })); 
+  // })); 
 
 //config passport authenticated session persistence
 //passport must serialize users into and deserialize users out of
@@ -111,10 +110,21 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
+
 var User = connection.define('user', {
-  username: {
+  firstname: {
     type: Sequelize.STRING,
-    allownull: false,
+    allowNull: false,
+    unique: false
+  },
+  lastname: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: false
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
     unique: true
   },
   password: {
@@ -122,19 +132,37 @@ var User = connection.define('user', {
     allowNull: false,
     validate: {
       len: {
-             args: [5, 10],
-             msg: "Your password must be between 5-10 characters"
-            },
-            isUpperCase: true
+        args: [5,10],
+        msg: "Your password must be between 5-10 characters"
+      }
     }
   }
-},{
-    hooks: {
-          beforeCreate: function(input){
-            input.password = bcrypt.hashSync(input.password, 10);
-          }
-    }
 });
+
+// var User = connection.define('user', {
+//   username: {
+//     type: Sequelize.STRING,
+//     allownull: false,
+//     unique: true
+//   },
+//   password: {
+//     type: Sequelize.STRING,
+//     allowNull: false,
+//     validate: {
+//       len: {
+//              args: [5, 10],
+//              msg: "Your password must be between 5-10 characters"
+//             },
+//             isUpperCase: true
+//     }
+//   }
+// },{
+//     hooks: {
+//           beforeCreate: function(input){
+//             input.password = bcrypt.hashSync(input.password, 10);
+//           }
+//     }
+// });
       
 //config local strategy for passport
 //the local strategy needs a verify callback that accepts credentials and calls done 
@@ -156,6 +184,11 @@ passport.use(new passportLocal(
   }
 ))  
 
+
+//routes
+
+var routes = require('./routes/index');
+app.use('/', routes);
 // database connection via sequelize
 connection.sync().then(function() {
   app.listen(PORT, function() {
