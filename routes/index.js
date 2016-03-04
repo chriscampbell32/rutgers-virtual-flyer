@@ -14,7 +14,9 @@ router.get('/login', function(req, res) {
   res.render('login', {title: 'Login Here'});
 });
 
-
+router.get('/activities', function (req, res){
+  res.render('activities');
+})
 
 
 
