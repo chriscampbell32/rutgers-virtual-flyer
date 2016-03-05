@@ -99,14 +99,11 @@ router.get('/home', function(req, res) {
 });
 
 router.get('/sports', function(req, res){
-  Sports.findAll({
-    where: {
-      sport: sport
-    }
-  })
-  res.render('sports', {
-    sport: req.body.sport,
-    isAuthenticated: req.isAuthenticated()
+  Sports.findAll({}
+  ).then(function(results){
+    console.log(results);
+    res.render('sports', {results});
+    
   });
 });
 
