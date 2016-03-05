@@ -1,7 +1,9 @@
 var Sequelize = require('sequelize');
 var connection = new Sequelize('rutgersflyers_db', 'root');
+var bcrypt = require('bcryptjs');
 
-var User = connection.define('User', {
+
+var User = connection.define('user', {
   firstname: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -24,10 +26,21 @@ var User = connection.define('User', {
       len: {
         args: [5,10],
         msg: "Your password must be between 5-10 characters"
-      },
+      }
     }
-  },
+  }
+},  
+{
+  hooks: {
+    beforeCreate: function(input){
+      input.password = bcrypt.hashSync(input.password, 10);
+    }
+  }
 });
+
+
+
+
 
 
 module.exports = User;

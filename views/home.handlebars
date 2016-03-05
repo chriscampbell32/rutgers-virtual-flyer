@@ -1,1 +1,33 @@
-<h1>Home Page</h1>
+<div class="jumbotron container-fluid">
+{{#if isAuthenticated}}
+  <h1>Welcome,  {{ user.username }}</h1>
+{{else}}
+  <h1>Please log in</h1>
+{{/if}}
+  <p>Things to do on Livingston campus</p>
+</div>
+
+<div class="container">
+
+    <div class="row col-md-12">
+
+      <div class="categories">
+
+        <div class="col-md-4">
+          <a href="/restaurant" name="business_category" value="restaurant" class="btn-lg btn-block btn-primary">Restaurants</a>
+        </div>
+
+        <div class="col-md-4">
+          <a  href="/sports" value="sports" class="btn-lg btn-block btn-primary">Sports</a>
+        </div>
+
+        <div class="col-md-4">
+          <a href="/activities" value="activities" class="btn-lg btn-block btn-primary">activities</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+     {{{ body }}}
+     
+   
