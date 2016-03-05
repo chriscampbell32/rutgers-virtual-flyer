@@ -5,6 +5,7 @@ var router = express.Router();
 var User = require('../models/user');
 var activities = require('../models/activities');
 var Sports = require('../models/sports');
+var Restaurant = require('../models/restaurant');
 
 //require passport stuff
 var passport = require('passport');
@@ -24,6 +25,9 @@ console.log('routes/index.js loaded');
 //providing a user
 //gets the credentials given by the user (username,psswrd)
 
+
+//bodyParser
+router.use(bodyParser.urlencoded({extended: false}));
 
   passport.use(new passportLocal.Strategy(
     function(username, password, done) {
@@ -45,7 +49,7 @@ console.log('routes/index.js loaded');
                   done(null, { id: username, username: username });
                 } else{
                   console.log('naaaaaah, failz')
-                  done(null, null);
+                  done(null, false);
                 }
             });
         } else {
@@ -78,7 +82,8 @@ router.get('/', function(req, res) {
 router.post('/login', 
   passport.authenticate('local', {
     successRedirect: '/home',
-    failureRedirect: '/home'
+    failureRedirect: '/?msg=Invalid Credentials'
+
   })
 );
 
@@ -93,12 +98,52 @@ router.get('/home', function(req, res) {
 });
 
 router.get('/sports', function(req, res){
-  Sports.findAll({}
-  ).then(function(results){
-    console.log(results);
+  console.log("req stuff?" + req); 
+  console.log("req session test:" + req.session);
+  console.log("req isAuth test:" + req.isAuthenticated());
+  console.log("req user test:" + req.user);
+
+  if(req.isAuthenticated()) {
+    Sports.findAll({}).then(function(results) {
     res.render('sports', {results});
-    
   });
+   } else {
+   console.log("user not authenticated") 
+   res.redirect('/');
+  }
+   
+});
+
+router.get('/restaurant', function(req, res){
+  console.log("req stuff?" + req); 
+  console.log("req session test:" + req.session);
+  console.log("req isAuth test:" + req.isAuthenticated());
+  console.log("req user test:" + req.user);
+
+  if(req.isAuthenticated()) {
+    Restaurant.findAll({}).then(function(results) {
+    res.render('restaurant', {results});
+  });
+   } else {
+   console.log("user not authenticated") 
+   res.redirect('/');
+  }
+
+  
+});
+
+
+router.post('/restaurant', function (req, res) {
+
+   // console.log(req.body);
+    Restaurant.sync().then(function() { 
+      Restaurant.create(req.body).then(function() {
+        res.redirect('/restaurant');
+        //console.log("works");
+      }).catch(function(err) {
+        console.log(err);
+      });
+    });
 });
 
  
@@ -129,10 +174,21 @@ router.post('/sports', function (req, res) {
 });
 
 router.get('/activities', function (req, res) {
-  activities.findAll({}).then(function(result) {
-    console.log(result);
-    res.render('activities', {result});
-  })
+  console.log("req stuff?" + req); 
+  console.log("req session test:" + req.session);
+  console.log("req isAuth test:" + req.isAuthenticated());
+  console.log("req user test:" + req.user);
+
+  if(req.isAuthenticated()) {
+    activities.findAll({}).then(function(results) {
+    res.render('activities', {results});
+  });
+   } else {
+   console.log("user not authenticated") 
+   res.redirect('/');
+  }
+
+  
 });
 
 

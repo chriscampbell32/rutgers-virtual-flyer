@@ -1,6 +1,7 @@
 //npm packages//
 var express = require('express');
 var expressHandlebars = require('express-handlebars');
+var expressSession = require('express-session');
 var bodyParser = require('body-parser');
 var bcrypt = require('bcryptjs')
 var app = express();
@@ -44,15 +45,34 @@ app.use('/public', express.static(__dirname + "/public"));
 //using passport authenticate, specifying local strategy
 //to authenticate requests
 
-app.use(require('express-session')({
-    secret: "supersecret",
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-        secure: false,
-        maxAge: (1000 * 60 * 60 *24 * 14)
-    },
-}));
+// app.use(require('express-session')({
+//     secret: "supersecret",
+//     resave: true,
+//     saveUninitialized: true,
+//     cookie: {
+//         secure: false,
+//         maxAge: (1000 * 60 * 60 *24 * 14)
+//     },
+// }));
+// last minute sess test
+var sess = {
+  secret: "supersecret",
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+      secure: false,
+      maxAge: (1000 * 60 * 60 *24 * 14)
+  }
+}
+
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy 
+  sess.cookie.secure = true // serve secure cookies 
+}
+ 
+app.use(expressSession(sess))
+
+// added 
 app.use(passport.initialize());
 app.use(passport.session());
 
