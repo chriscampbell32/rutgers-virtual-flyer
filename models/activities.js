@@ -1,7 +1,7 @@
 var Sequelize = require('sequelize');
 var connection = new Sequelize('rutgersflyers_db', 'root');
 
-var Activities = connection.define('Activities', {
+var activities = connection.define('activities', {
   activityname: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -11,7 +11,7 @@ var Activities = connection.define('Activities', {
     type: Sequelize.STRING,
     allowNull: false,
     unique: false
-  }
+  },
   activitylocation: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -25,4 +25,4 @@ var Activities = connection.define('Activities', {
 });
 
 
-module.exports = Activities;  
+module.exports = activities;  
