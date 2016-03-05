@@ -101,6 +101,15 @@ router.get('/sports', function(req, res){
   });
 });
 
+router.get('/restaurant', function(req, res){
+  Restaurant.findAll({}
+  ).then(function(results){
+    console.log(results);
+    res.render('restaurant', {results});
+    
+  });
+});
+
  
 router.post('/register', function (req, res) {
 
@@ -108,6 +117,7 @@ router.post('/register', function (req, res) {
     User.sync().then(function() { 
       User.create(req.body).then(function() {
         //console.log("works");
+        res.render('home');
       }).catch(function(err) {
         console.log(err);
       });
