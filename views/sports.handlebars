@@ -1,10 +1,7 @@
 
 <div id="jumbotron_sports" class="jumbotron container-fluid">
-  
-</div>
-
-
-  <div class="container">
+  </div>
+<div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
        <h1>Sports</h1>
@@ -28,13 +25,17 @@
       </div>
     </div>
   </div>
-        
+ 
+
+  <div class="container-fluid">      
           {{#each results}}
           <div class="panel panel-default">
-            <h3 class="panel header">{{dataValues.sport}}</h3>
+            <h3 class="panel-heading">{{dataValues.sport}}</h3>
               <p class="panel-body">{{dataValues.description}}</p>
           </div>
           {{/each}}
+   </div>
+
 
 
 

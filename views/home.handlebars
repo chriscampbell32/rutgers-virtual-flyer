@@ -1,12 +1,12 @@
 <div class="jumbotron container-fluid">
-  <h1> Welcome </h1>
-  <p>things to do on Livingston campus</p>
-</div>
 {{#if isAuthenticated}}
-  <h2>Hello there {{ user.username }}</h2>
+  <h1>Welcome,  {{ user.username }}</h1>
 {{else}}
-  <h2>Please log in</h2>
+  <h1>Please log in</h1>
 {{/if}}
+  <p>Things to do on Livingston campus</p>
+</div>
+
 <div class="container">
 
     <div class="row col-md-12">
