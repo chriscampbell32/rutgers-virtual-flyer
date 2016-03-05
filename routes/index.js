@@ -1,16 +1,30 @@
 var express = require('express');
 var router = express.Router();
+
 //require table models
 var User = require('../models/user');
+var activities = require('../models/activities');
 var Sports = require('../models/sports');
+
+//require passport stuff
 var passport = require('passport');
 var passportLocal = require('passport-local');
 var bcrypt = require('bcryptjs');
 var bodyParser = require('body-parser');
 
 console.log('routes/index.js loaded');
-
+//config passport authenticated session persistence
+//passport must serialize users into and deserialize users out of
+//the session. just supply user ID when serializing and query the 
+//user record by ID from the db when deserializing
 // will remove later 
+
+//config local strategy for passport
+//the local strategy needs a verify callback that accepts credentials and calls done 
+//providing a user
+//gets the credentials given by the user (username,psswrd)
+
+
   passport.use(new passportLocal.Strategy(
     function(username, password, done) {
       //check password in db
@@ -21,26 +35,6 @@ console.log('routes/index.js loaded');
           // password: password
         }
     }).then(function(user) {
-        
-    //       console.log("fire fire fire" + user);          
-    //       console.log("username check");
-    //       if (!user) {
-    //         console.log("invalid username");
-    //         return done(null, false, {message: 'Incorrect username.'});
-    //       }
-    //       console.log("password check");
-    //       console.log(user);
-    //       console.log(typeof user);
-    //       if (!user.dataValues.password === password) {
-    //         console.log("invalid password");
-    //         return done(null, false, {message: 'Incorrect password.' });
-    //       }
-    //       console.log("fire fire close for real2");
-    //       return done(null, { id:username, username: username});
-    //     // done(user);
-    //       // console.log('show me things:' + user);
-    //   }); 
-    // }
     console.log("wtf");
      if(user){
       console.log("hitting");
@@ -62,14 +56,14 @@ console.log('routes/index.js loaded');
   // remove above when modluarizing
 
 //change the object used to authenticate to a smaller token, and protects the server from attacks
+//parameters by default localstrategy expect to find credentials
+//in parameters names username and password.
 passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
 passport.deserializeUser(function(id, done) {
     done(null, { id: id, username: id })
 });
-
-
 
 router.get('/', function(req, res) {
   // console.log("were here")
@@ -133,21 +127,26 @@ router.post('/sports', function (req, res) {
     });
 });
 
-
-// router.post('/login',
-//   passport.authenticate('local', { 
-//     successRedirect: '/',
-//     failureRedirect: '/register'}
-//   )//,
-//   // function(req,res) {
-//   //   res.redirect('/');
-// );
-
-// router.post('/login', function (req, res){
-//   console.log("post to /login");
-// });
+router.get('/activities', function (req, res) {
+  activities.findAll({}).then(function(result) {
+    console.log(result);
+    res.render('activities', {result});
+  })
+});
 
 
+router.post('/activities', function (req, res) {
+  console.log(req.body);
+
+     activities.sync().then(function() {
+     activities.create(req.body).then(function() {
+       console.log("works");
+       res.redirect('/activities');
+      }).catch(function(err) {
+       console.log(err);
+      });
+    });
+});
 
 
 module.exports = router;
