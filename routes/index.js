@@ -78,7 +78,7 @@ router.get('/', function(req, res) {
 router.post('/login', 
   passport.authenticate('local', {
     successRedirect: '/home',
-    failureRedirect: '/register'
+    failureRedirect: '/home'
   })
 );
 
@@ -108,6 +108,7 @@ router.post('/register', function (req, res) {
     User.sync().then(function() { 
       User.create(req.body).then(function() {
         //console.log("works");
+        res.render('home');
       }).catch(function(err) {
         console.log(err);
       });
