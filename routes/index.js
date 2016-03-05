@@ -26,6 +26,9 @@ console.log('routes/index.js loaded');
 //gets the credentials given by the user (username,psswrd)
 
 
+//bodyParser
+router.use(bodyParser.urlencoded({extended: false}));
+
   passport.use(new passportLocal.Strategy(
     function(username, password, done) {
       //check password in db
@@ -46,7 +49,7 @@ console.log('routes/index.js loaded');
                   done(null, { id: username, username: username });
                 } else{
                   console.log('naaaaaah, failz')
-                  done(null, null);
+                  done(null, false);
                 }
             });
         } else {
@@ -79,7 +82,7 @@ router.get('/', function(req, res) {
 router.post('/login', 
   passport.authenticate('local', {
     successRedirect: '/home',
-    failureRedirect: '/register'
+    failureRedirect: '/?msg=Invalid Credentials'
   })
 );
 
@@ -94,22 +97,40 @@ router.get('/home', function(req, res) {
 });
 
 router.get('/sports', function(req, res){
-  Sports.findAll({}
-  ).then(function(results){
-    console.log(results);
+  console.log("req stuff?" + req); 
+  console.log("req session test:" + req.session);
+  console.log("req isAuth test:" + req.isAuthenticated());
+  console.log("req user test:" + req.user);
+
+  if(req.isAuthenticated()) {
+    Sports.findAll({}).then(function(results) {
     res.render('sports', {results});
-    
   });
+   } else {
+   console.log("user not authenticated") 
+   res.redirect('/');
+  }
+   
 });
 
 router.get('/restaurant', function(req, res){
-  Restaurant.findAll({}
-  ).then(function(results){
-    console.log(results);
+  console.log("req stuff?" + req); 
+  console.log("req session test:" + req.session);
+  console.log("req isAuth test:" + req.isAuthenticated());
+  console.log("req user test:" + req.user);
+
+  if(req.isAuthenticated()) {
+    Restaurant.findAll({}).then(function(results) {
     res.render('restaurant', {results});
-    
   });
+   } else {
+   console.log("user not authenticated") 
+   res.redirect('/');
+  }
+
+  
 });
+
 
 router.post('/restaurant', function (req, res) {
 
@@ -152,10 +173,21 @@ router.post('/sports', function (req, res) {
 });
 
 router.get('/activities', function (req, res) {
-  activities.findAll({}).then(function(result) {
-    console.log(result);
-    res.render('activities', {result});
-  })
+  console.log("req stuff?" + req); 
+  console.log("req session test:" + req.session);
+  console.log("req isAuth test:" + req.isAuthenticated());
+  console.log("req user test:" + req.user);
+
+  if(req.isAuthenticated()) {
+    activities.findAll({}).then(function(results) {
+    res.render('activities', {results});
+  });
+   } else {
+   console.log("user not authenticated") 
+   res.redirect('/');
+  }
+
+  
 });
 
 
