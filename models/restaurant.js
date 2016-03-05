@@ -5,7 +5,7 @@ var Restaurant = connection.define('restaurant', {
   restaurant: {
     type:Sequelize.STRING,
     allowNull: false,
-    unique: false
+    unique: true
   },
   
   description:{

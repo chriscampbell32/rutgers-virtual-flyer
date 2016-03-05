@@ -5,6 +5,7 @@ var router = express.Router();
 var User = require('../models/user');
 var activities = require('../models/activities');
 var Sports = require('../models/sports');
+var Restaurant = require('../models/restaurant');
 
 //require passport stuff
 var passport = require('passport');
@@ -108,6 +109,19 @@ router.get('/restaurant', function(req, res){
     res.render('restaurant', {results});
     
   });
+});
+
+router.post('/restaurant', function (req, res) {
+
+   // console.log(req.body);
+    Restaurant.sync().then(function() { 
+      Restaurant.create(req.body).then(function() {
+        res.redirect('/restaurant');
+        //console.log("works");
+      }).catch(function(err) {
+        console.log(err);
+      });
+    });
 });
 
  
