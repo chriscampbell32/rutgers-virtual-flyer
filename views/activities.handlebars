@@ -1,0 +1,43 @@
+
+<div id="jumbotron_activity" class="jumbotron container-fluid">
+  </div>
+<div class="container">
+</div>
+    <form action="/activities" method="POST">
+        <input name="activityname" placeholder="Name of Activity">
+        <input name="activityimageurl" placeholder="Picture URL">
+        <input name="activitylocation" placeholder="Location">
+        <input name="activitydescription" placeholder="Description of Activity">
+        <input type="submit">  
+    </form>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h1>Activities</h1>
+        <div class="panel panel-default">
+            <img src="public/images/rutgersmovie.png" class="container-fluid" width="100%">
+        </div>
+
+
+        <div class="panel heading">Rutgers Movie Theater</div>
+        <div class="panel-body">"Lorem ipsum etc etc etc movie stuff"
+        </div>
+        <br/>
+
+
+        <div class="panel panel-default">
+        <img src="public/images/Photo_Frontpage_Nav_Student-Centers.jpg" class="container-fluid" width="100%">
+        <div class="panel-heading">Rutgers Student Activities Center</div>
+        <div class="panel-body">"Lorem ipsum blah blah blah student activities include one two and three. its located next to Frelinghuysen Hall with a nice view of the Raritan river?"</div>
+
+        {{#each result}}
+            <div class="panel panel-default">
+                <img src="{{dataValues.activityimageurl}}" class="container-fluid" width="100%">
+            </div>
+        <h1>{{dataValues.activityname}}</h1>
+        <div class="panel-heading">{{dataValues.activitylocation}}</div>
+        <div class="panel-body">{{dataValues.ctivitydescription}}</div>
+        {{/each}}
+        
+        
