@@ -42,19 +42,7 @@ app.set('view engine', 'handlebars');
 
 app.use('/public', express.static(__dirname + "/public"));
 
-//using passport authenticate, specifying local strategy
-//to authenticate requests
 
-// app.use(require('express-session')({
-//     secret: "supersecret",
-//     resave: true,
-//     saveUninitialized: true,
-//     cookie: {
-//         secure: false,
-//         maxAge: (1000 * 60 * 60 *24 * 14)
-//     },
-// }));
-// last minute sess test
 var sess = {
   secret: "supersecret",
   resave: true,
@@ -77,8 +65,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-//parameters by default localstrategy expect to find credentials
-//in parameters names username and password.
 //routes
 
 var routes = require('./routes/index');
