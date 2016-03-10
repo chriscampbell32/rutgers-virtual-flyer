@@ -13,17 +13,8 @@ var passportLocal = require('passport-local');
 var bcrypt = require('bcryptjs');
 var bodyParser = require('body-parser');
 
-console.log('routes/index.js loaded');
-//config passport authenticated session persistence
-//passport must serialize users into and deserialize users out of
-//the session. just supply user ID when serializing and query the 
-//user record by ID from the db when deserializing
-// will remove later 
+//console.log('routes/index.js loaded');
 
-//config local strategy for passport
-//the local strategy needs a verify callback that accepts credentials and calls done 
-//providing a user
-//gets the credentials given by the user (username,psswrd)
 
 
 //bodyParser
@@ -57,11 +48,8 @@ router.use(bodyParser.urlencoded({extended: false}));
         }
     });
   }));  
-  // remove above when modluarizing
 
-//change the object used to authenticate to a smaller token, and protects the server from attacks
-//parameters by default localstrategy expect to find credentials
-//in parameters names username and password.
+  
 passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
@@ -74,10 +62,6 @@ router.get('/', function(req, res) {
   res.render('home');
 });
 
-// router.get('/register', function(req, res) {
-//   res.render('register', {title: 'Register Here'});
-// });
-
 
 router.post('/login', 
   passport.authenticate('local', {
@@ -86,7 +70,6 @@ router.post('/login',
 
   })
 );
-
 
 
 router.get('/home', function(req, res) {
