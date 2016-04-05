@@ -13,9 +13,6 @@ var passportLocal = require('passport-local');
 var bcrypt = require('bcryptjs');
 var bodyParser = require('body-parser');
 
-//console.log('routes/index.js loaded');
-
-
 
 //bodyParser
 router.use(bodyParser.urlencoded({extended: false}));
@@ -25,10 +22,8 @@ router.use(bodyParser.urlencoded({extended: false}));
       //check password in db
       User.findOne({
         where: {
-        // username: username
-          email: username//,
-          // password: password
-        }
+         email: username
+          }
     }).then(function(user) {
     console.log("wtf");
      if(user){
@@ -58,8 +53,7 @@ passport.deserializeUser(function(id, done) {
 });
 
 router.get('/', function(req, res) {
-  // console.log("were here")
-  res.render('home');
+   res.render('home');
 });
 
 
@@ -73,7 +67,7 @@ router.post('/login',
 
 
 router.get('/home', function(req, res) {
-  //console.log('req all the things ' + JSON.parse(JSON.stringify(req);
+  
   res.render('home', {
     user: req.user,
     isAuthenticated: req.isAuthenticated()
