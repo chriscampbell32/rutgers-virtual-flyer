@@ -105,18 +105,14 @@ router.get('/restaurant', function(req, res){
    console.log("user not authenticated") 
    res.redirect('/');
   }
-
-  
 });
 
 
 router.post('/restaurant', function (req, res) {
-
-   // console.log(req.body);
     Restaurant.sync().then(function() { 
       Restaurant.create(req.body).then(function() {
         res.redirect('/restaurant');
-        //console.log("works");
+        
       }).catch(function(err) {
         console.log(err);
       });
@@ -126,10 +122,10 @@ router.post('/restaurant', function (req, res) {
  
 router.post('/register', function (req, res) {
 
-   // console.log(req.body);
+   
     User.sync().then(function() { 
       User.create(req.body).then(function() {
-        //console.log("works");
+        
         res.render('home');
       }).catch(function(err) {
         console.log(err);
@@ -138,12 +134,10 @@ router.post('/register', function (req, res) {
 });
 
 router.post('/sports', function (req, res) {
-
-   // console.log(req.body);
     Sports.sync().then(function() { 
       Sports.create(req.body).then(function() {
         res.redirect('/sports');
-        //console.log("works");
+        
       }).catch(function(err) {
         console.log(err);
       });
